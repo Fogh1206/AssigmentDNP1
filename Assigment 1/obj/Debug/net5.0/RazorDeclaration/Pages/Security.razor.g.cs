@@ -77,6 +77,13 @@ using Assigment_1;
 #nullable disable
 #nullable restore
 #line 10 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+using ChartJs.Blazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
 using Assigment_1.Shared;
 
 #line default

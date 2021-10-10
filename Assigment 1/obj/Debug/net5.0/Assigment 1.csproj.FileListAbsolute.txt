@@ -140,3 +140,5 @@ C:\Users\esben\RiderProjects\Assigment1\Assigment 1\obj\Debug\net5.0\Assigment 1
 C:\Users\esben\RiderProjects\Assigment1\Assigment 1\obj\Debug\net5.0\Assigment 1.csproj.CopyComplete
 C:\Users\esben\RiderProjects\Assigment1\Assigment 1\obj\Debug\net5.0\RazorDeclaration\Pages\AddAdult.razor.g.cs
 C:\Users\esben\RiderProjects\Assigment1\Assigment 1\obj\Debug\net5.0\Razor\Pages\AddAdult.razor.g.cs
+C:\Users\esben\RiderProjects\Assigment1\Assigment 1\bin\Debug\net5.0\ChartJs.Blazor.dll
+C:\Users\esben\RiderProjects\Assigment1\Assigment 1\bin\Debug\net5.0\Newtonsoft.Json.dll
