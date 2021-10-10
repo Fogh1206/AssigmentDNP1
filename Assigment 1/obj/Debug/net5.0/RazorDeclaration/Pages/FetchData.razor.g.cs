@@ -13,84 +13,112 @@ namespace Assigment_1.Pages
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 1 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 2 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 3 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 4 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 5 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 6 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 7 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 8 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 9 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Assigment_1;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\_Imports.razor"
+#line 10 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\_Imports.razor"
 using Assigment_1.Shared;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\Pages\FetchData.razor"
+#line 3 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
 using Assigment_1.Data;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\Pages\FetchData.razor"
+#line 4 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
+using ChartJs.Blazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
+using ChartJs.Blazor.Common;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
+using ChartJs.Blazor.PieChart;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 7 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
+using ChartJs.Blazor.Util;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 8 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
 using Models;
 
 #line default
@@ -105,11 +133,13 @@ using Models;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 57 "C:\Users\esben\RiderProjects\Assigment1\Assigment 1\Pages\FetchData.razor"
+#line 63 "C:\Users\krzys\RiderProjects\Assigment 1\Assigment 1\Pages\FetchData.razor"
  
     [CascadingParameter]
     protected Task<AuthenticationState> AuthStat { get; set; }
+
     public string SearchPhrase;
+    private PieConfig _config;
     public IList<Adult> Adults { get; set; }
 
     protected override async Task OnInitializedAsync()
@@ -125,6 +155,8 @@ using Models;
         {
             Console.WriteLine("2str");
             Adults = AdultService.AdultsList;
+            CreatePie();
+            PopulatePie();
         }
     }
 
@@ -137,6 +169,60 @@ using Models;
     {
         NavigationManager.NavigateTo("SearchResult/" + SearchPhrase);
         Console.WriteLine("Hello");
+    }
+
+    private void CreatePie()
+    {
+        _config = new PieConfig
+        {
+            Options = new PieOptions
+            {
+                Responsive = true,
+                Title = new OptionsTitle
+                {
+                    Display = true,
+                    Text = "Male to Female Ratio"
+                }
+            }
+        };
+
+        foreach (string color in new[] {"Male", "Female"})
+        {
+            _config.Data.Labels.Add(color);
+        }
+    }
+
+    private void PopulatePie()
+    {
+        int male = 0;
+        int female = 0;
+        foreach (var adult in Adults)
+        {
+            if (adult.Sex.Equals("M"))
+            {
+                male += 1;
+            }
+            else
+            {
+                female += 1;
+            }
+        }
+
+        PieDataset<int> dataset = new PieDataset<int>(new[] {male, female})
+        {
+            BackgroundColor = new[]
+            {
+                ColorUtil.ColorHexString(255, 99, 132),
+                ColorUtil.ColorHexString(255, 205, 86),
+            }
+        };
+        _config.Data.Datasets.Add(dataset);
+    }
+
+    private void Generate()
+    {
+        _config.Data.Datasets.Clear();
+        PopulatePie();
     }
 
 #line default
